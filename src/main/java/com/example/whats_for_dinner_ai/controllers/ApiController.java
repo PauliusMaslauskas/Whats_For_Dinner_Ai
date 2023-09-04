@@ -1,7 +1,8 @@
 package com.example.whats_for_dinner_ai.controllers;
 
-import com.example.whats_for_dinner_ai.DTO.VeggiesDTO;
-import com.example.whats_for_dinner_ai.Services.VeggiesService;
+import com.example.whats_for_dinner_ai.DTO.VegetablesDTO;
+import com.example.whats_for_dinner_ai.Services.PromptService;
+import com.example.whats_for_dinner_ai.Services.VegetablesService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,11 @@ import java.util.Collection;
 public class ApiController {
 
     @Autowired
-    private final VeggiesService veggiesService;
-
+    private final VegetablesService vegetablesService;
 
     @PostMapping("/prompt")
-    public ResponseEntity<VeggiesDTO> getPrompt(@RequestBody Collection<VeggiesDTO> veggiesDTO){
-        veggiesService.saveVeggies(veggiesDTO);
+    public ResponseEntity<VegetablesDTO> getPrompt(@RequestBody Collection<VegetablesDTO> vegetablesDTO){
+        vegetablesService.manageVegetables(vegetablesDTO);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.whats_for_dinner_ai.Entities;
+package com.example.whats_for_dinner_ai.Entities.Vegetables;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "veggies")
-public class Veggies {
+@Table(name = "vegetables")
+public class Vegetables {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String veggieName;
+    private String name;
+
+    private String color;
 
 }
