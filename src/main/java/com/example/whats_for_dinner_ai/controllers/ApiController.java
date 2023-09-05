@@ -1,7 +1,6 @@
 package com.example.whats_for_dinner_ai.controllers;
 
 import com.example.whats_for_dinner_ai.DTO.VegetablesDTO;
-import com.example.whats_for_dinner_ai.Services.PromptService;
 import com.example.whats_for_dinner_ai.Services.VegetablesService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-
 @RestController
 @AllArgsConstructor
 public class ApiController {
@@ -22,6 +20,8 @@ public class ApiController {
 
     @PostMapping("/prompt")
     public ResponseEntity<VegetablesDTO> getPrompt(@RequestBody Collection<VegetablesDTO> vegetablesDTO){
+
+
         vegetablesService.manageVegetables(vegetablesDTO);
         return ResponseEntity.ok().build();
     }

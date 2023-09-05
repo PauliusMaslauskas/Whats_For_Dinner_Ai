@@ -1,10 +1,9 @@
 package com.example.whats_for_dinner_ai.Services;
 
 import com.example.whats_for_dinner_ai.DTO.VegetablesDTO;
-import com.example.whats_for_dinner_ai.Entities.Vegetables.Vegetables;
+import com.example.whats_for_dinner_ai.Entities.Vegetables;
 import com.example.whats_for_dinner_ai.Repositories.VegetableRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,8 @@ public class VegetablesService {
         if (!vegetablesDTO.isEmpty()){
             sbVegetables.setLength(sbVegetables.length() - 2);
         }
-        promptService.generatePrompt(sbVegetables);
+        String vegetables = sbVegetables.toString();
+        promptService.generatePrompt(vegetables);
         saveVeggies(vegetablesDTO);
     }
 

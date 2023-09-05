@@ -1,4 +1,4 @@
-package com.example.whats_for_dinner_ai.Entities.Vegetables;
+package com.example.whats_for_dinner_ai.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
