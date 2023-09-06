@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class VegetablesDTO {
+public class ProductDTO {
 
     private String name;
 
