@@ -1,4 +1,4 @@
-package com.example.whats_for_dinner_ai.Entities;
+package com.example.whats_for_dinner_ai.Entities.Gpt;
 
 
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChatResponse {
+public class ChatResponse  {
 
     private List<Choice> choices;
 

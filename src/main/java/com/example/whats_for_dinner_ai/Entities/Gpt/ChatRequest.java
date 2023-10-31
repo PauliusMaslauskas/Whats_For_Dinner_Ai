@@ -1,5 +1,6 @@
-package com.example.whats_for_dinner_ai.Entities;
+package com.example.whats_for_dinner_ai.Entities.Gpt;
 
+import com.example.whats_for_dinner_ai.Entities.Prompt;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +18,11 @@ public class ChatRequest {
 
     private double temperature;
 
-    public ChatRequest(String model, String prompt) {
+    public ChatRequest(String model, String content) {
         this.model = model;
 
         this.messages = new ArrayList<>();
-        this.messages.add(new Message("user", prompt));
+        this.messages.add(new Message("user", content));
     }
 
 }

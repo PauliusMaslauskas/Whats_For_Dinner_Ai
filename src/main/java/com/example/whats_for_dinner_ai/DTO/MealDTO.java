@@ -1,25 +1,24 @@
 package com.example.whats_for_dinner_ai.DTO;
 
+import com.example.whats_for_dinner_ai.Entities.Product;
+import com.example.whats_for_dinner_ai.Enums.Diet;
+import com.example.whats_for_dinner_ai.Enums.MealType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class MealDTO {
 
-    private String mealType;
+    private MealType mealType;
 
-    private String productCategory;
+    private Diet diet;
 
-    private String name;
-
-    private String color;
-
-    @Override
-    public String toString() {
-        return color + " " + name;
-    }
+    private List<Product> products;
 }
 
