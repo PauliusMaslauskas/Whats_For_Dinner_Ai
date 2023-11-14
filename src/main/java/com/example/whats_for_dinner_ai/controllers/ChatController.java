@@ -28,7 +28,9 @@ public class ChatController {
         if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
             return "No response";
         }
-        promptService.saveResponseToDatabase(response.getChoices().get(0).getMessage().getContent());
+
+        promptService.saveResponse(response.getChoices().get(0).getMessage().getContent());
+
         return response.getChoices().get(0).getMessage().getContent();
     }
 }

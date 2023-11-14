@@ -17,16 +17,16 @@ import java.util.List;
 public class PromptService {
 
     private final PromptRepository promptRepository;
-    private final ResponseRepository responseRepository;
     private final MealService mealService;
+    private final ResponseRepository responseRepository;
 
     public String generatePrompt(MealDTO mealDTO) {
         Meal newMeal = createMealFromDTO(mealDTO);
         String promptText = generatePromptText(newMeal);
 
-        savePromptToDatabase(promptText);
-        mealService.saveMealToDatabase(newMeal);
-        mealService.saveProductsToDatabase(newMeal);
+        savePrompt(promptText);
+        mealService.saveMeal(newMeal);
+        mealService.saveProducts(newMeal);
         return promptText;
     }
 
@@ -52,15 +52,15 @@ public class PromptService {
                 "I have these products: " + String.join(", ", getProductsToList(newMeal));
     }
 
-    private void savePromptToDatabase(String promptText) {
+    private void savePrompt(String promptText) {
         Prompt prompt = new Prompt();
         prompt.setContent(promptText);
         promptRepository.save(prompt);
     }
-
-    public void saveResponseToDatabase(String response){
+    public void saveResponse(String response){
         Response savedResponse = new Response();
         savedResponse.setResponse(response);
         responseRepository.save(savedResponse);
     }
+
 }

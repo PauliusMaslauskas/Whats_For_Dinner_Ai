@@ -13,11 +13,12 @@ public class MealService {
     private final MealRepository mealRepository;
     private final ProductRepository productRepository;
 
-    protected void saveMealToDatabase(Meal newMeal) {
+
+    protected void saveMeal(Meal newMeal) {
         mealRepository.save(newMeal);
     }
 
-    protected void saveProductsToDatabase(Meal newMeal) {
+    protected void saveProducts(Meal newMeal) {
         newMeal.getProducts().forEach(prd -> prd.setMeal(newMeal));
         productRepository.saveAll(newMeal.getProducts());
     }
