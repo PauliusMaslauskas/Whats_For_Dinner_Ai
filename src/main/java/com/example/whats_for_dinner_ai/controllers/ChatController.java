@@ -4,6 +4,7 @@ import com.example.whats_for_dinner_ai.DTO.MealDTO;
 import com.example.whats_for_dinner_ai.Entities.Gpt.ChatRequest;
 import com.example.whats_for_dinner_ai.Entities.Gpt.ChatResponse;
 import com.example.whats_for_dinner_ai.Services.PromptService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +21,23 @@ public class ChatController {
     private static final String MODEL = "gpt-3.5-turbo";
 
     @GetMapping("/chat")
-    public String chat(@RequestBody MealDTO mealDto) {
+    public String chat(@RequestBody MealDTO mealDto , HttpServletResponse httpResponse) {
 
-        ChatRequest request = new ChatRequest(MODEL, promptService.generatePrompt(mealDto));
+        try {
+            ChatRequest request = new ChatRequest(MODEL, promptService.generatePrompt(mealDto));
 
-        ChatResponse response = restTemplate.postForObject(API_URL, request, ChatResponse.class);
-        if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
-            return "No response";
+            ChatResponse response = restTemplate.postForObject(API_URL, request, ChatResponse.class);
+            if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
+                return "No response";
+            }
+
+            promptService.saveResponse(response.getChoices().get(0).getMessage().getContent());
+
+            return response.getChoices().get(0).getMessage().getContent();
+
+        } catch (Exception e) {
+            httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return e.getMessage();
         }
-
-        promptService.saveResponse(response.getChoices().get(0).getMessage().getContent());
-
-        return response.getChoices().get(0).getMessage().getContent();
     }
 }

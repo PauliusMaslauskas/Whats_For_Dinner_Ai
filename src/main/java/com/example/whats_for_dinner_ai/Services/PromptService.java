@@ -31,6 +31,9 @@ public class PromptService {
     }
 
     private Meal createMealFromDTO(MealDTO mealDTO) {
+
+        mealValidation(mealDTO);
+
         Meal newMeal = new Meal();
         newMeal.setMealType(mealDTO.getMealType());
         newMeal.setDiet(mealDTO.getDiet());
@@ -63,4 +66,16 @@ public class PromptService {
         responseRepository.save(savedResponse);
     }
 
+    private void mealValidation(MealDTO mealDTO) {
+
+        if (mealDTO.getProducts().isEmpty()) {
+            throw new NullPointerException("No Products Provided");
+        }
+        if (mealDTO.getMealType() == null){
+            throw new NullPointerException("No Meal Type Provided");
+        }
+        if (mealDTO.getDiet() == null){
+            throw new NullPointerException("No Meal Diet Provided");
+        }
+    }
 }
