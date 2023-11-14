@@ -9,17 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "product")
-public class Product {
+public class Response {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String productName;
+    @Column(length = 2555)
+    private String response;
 
-    @ManyToOne
-    @JoinColumn(name = "meal_id", nullable = false)
-    private Meal meal;
-
+    @OneToOne
+    @JoinColumn(name = "id")
+    Meal meal;
 }

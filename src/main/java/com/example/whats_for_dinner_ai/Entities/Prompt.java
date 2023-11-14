@@ -9,17 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "product")
-public class Product {
+@Table(name = "message")
+public class Prompt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String productName;
+    private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "meal_id", nullable = false)
-    private Meal meal;
+
 
 }
