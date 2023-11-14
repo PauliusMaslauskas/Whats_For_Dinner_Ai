@@ -4,9 +4,9 @@ import com.example.whats_for_dinner_ai.DTO.MealDTO;
 import com.example.whats_for_dinner_ai.Entities.Prompt;
 import com.example.whats_for_dinner_ai.Entities.Meal;
 import com.example.whats_for_dinner_ai.Entities.Product;
-import com.example.whats_for_dinner_ai.Repositories.MealRepository;
-import com.example.whats_for_dinner_ai.Repositories.ProductRepository;
+import com.example.whats_for_dinner_ai.Entities.Response;
 import com.example.whats_for_dinner_ai.Repositories.PromptRepository;
+import com.example.whats_for_dinner_ai.Repositories.ResponseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,16 @@ import java.util.List;
 public class PromptService {
 
     private final PromptRepository promptRepository;
-    private final MealRepository mealRepository;
-    private final ProductRepository productRepository;
+    private final ResponseRepository responseRepository;
+    private final MealService mealService;
 
     public String generatePrompt(MealDTO mealDTO) {
         Meal newMeal = createMealFromDTO(mealDTO);
         String promptText = generatePromptText(newMeal);
 
-        savePrompt(promptText);
-        saveMeal(newMeal);
-        saveProducts(newMeal);
+        savePromptToDatabase(promptText);
+        mealService.saveMealToDatabase(newMeal);
+        mealService.saveProductsToDatabase(newMeal);
         return promptText;
     }
 
@@ -45,30 +45,22 @@ public class PromptService {
     }
 
     private String generatePromptText(Meal newMeal) {
-
-        String promptText = "Hello chatGPT, I have these ingredients," + " " +
+        return "Hello chatGPT, I have these ingredients," + " " +
                 "could you suggest a dinner menu with only the ingredients I have?" + " " +
                 "I want it to be " + newMeal.getMealType().name() + " " +
                 "and it should be " + newMeal.getDiet().name() + ". " +
                 "I have these products: " + String.join(", ", getProductsToList(newMeal));
-
-        return promptText;
     }
 
-
-    private void savePrompt(String promptText) {
+    private void savePromptToDatabase(String promptText) {
         Prompt prompt = new Prompt();
         prompt.setContent(promptText);
         promptRepository.save(prompt);
     }
 
-    private void saveMeal(Meal newMeal) {
-        mealRepository.save(newMeal);
-
-    }
-
-    private void saveProducts(Meal newMeal) {
-        newMeal.getProducts().forEach(prd -> prd.setMeal(newMeal));
-        productRepository.saveAll(newMeal.getProducts());
+    public void saveResponseToDatabase(String response){
+        Response savedResponse = new Response();
+        savedResponse.setResponse(response);
+        responseRepository.save(savedResponse);
     }
 }
