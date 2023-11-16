@@ -22,8 +22,21 @@ spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=create
 spring.sql.init.mode=always
 ```
+5. Setup OpenAI API key in (`Templates/WeavyAiRestTemplateConfig.java`) and enter your key as shown here:
 
-3. Start the application.
+```
+private static final String openaiApiKey = "your_API_key";
+```
+PS. Additionally, the API accepts a number of optional parameters to modify the response. (`ChatRequest.java`) class has these parameters.
+```
+n – to increase the number of responses to generate. The default value is 1.
+
+temperature – controls the randomness of the response. The default value is 1 (most random).
+
+max_tokens – is used to limit the maximum number of tokens in the response. The default value is infinity.
+```
+
+4. Start the application.
 
 4. Database should be created and seeded. Now change these values back if you don't want your database to be recreated on every startup:
 
